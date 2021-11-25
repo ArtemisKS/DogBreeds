@@ -9,6 +9,10 @@ import UIKit
 
 final class BreedsListDataSource {
 
+    private enum Defaults {
+        static let cornerRadius: CGFloat = 8
+    }
+
     private typealias DataSource = UICollectionViewDiffableDataSource<BreedsList.Models.Section, BreedsList.Models.Item>
     private typealias Snapshot = NSDiffableDataSourceSnapshot<BreedsList.Models.Section, BreedsList.Models.Item>
 
@@ -38,6 +42,8 @@ final class BreedsListDataSource {
             case let .item(state):
                 let cell: BreedsListCollectionViewCell = collectionView.dequeueReusableCell(for: indexPath)
                 cell.state = state
+                cell.round(with: Defaults.cornerRadius)
+                cell.backgroundColor = .customVeryLightBlue
                 return cell
             }
         }
