@@ -54,10 +54,7 @@ final class BreedCollectionViewCell: UICollectionViewCell, Reusable {
     private let checkBoxImageView: UIImageView = {
         $0.contentMode = .scaleAspectFit
         $0.image = Defaults.Images.checkmark
-        $0.tintColor = .red
-//        $0.addBorder(Defaults.checkImageSize.width / 2,
-//                     borderWidth: 2,
-//                     color: .white)
+        $0.tintColor = .imperialRed
         $0.isHidden = true
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0

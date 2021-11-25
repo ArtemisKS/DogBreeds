@@ -35,8 +35,8 @@ extension UIColor {
         .init(rgb: 250)
     }
 
-    class var dummyImageColor: UIColor {
-        .init(hex: 0xfc7a66)
+    class var imperialRed: UIColor {
+        .init(r: 237, g: 41, b: 60)
     }
 
     convenience init(hex: Int, alpha: CGFloat = 1.0) {

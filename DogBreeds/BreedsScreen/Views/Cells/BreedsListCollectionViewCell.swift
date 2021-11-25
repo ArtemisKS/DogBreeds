@@ -10,6 +10,8 @@ import UIKit
 final class BreedsListCollectionViewCell: UICollectionViewCell, Reusable {
 
     private enum Defaults {
+
+        static let cornerRadius: CGFloat = 8
     }
 
     struct State {
@@ -56,7 +58,7 @@ private extension BreedsListCollectionViewCell {
     func setupUI() {
         self.selectedBackgroundView = selectedView
         contentView.addCenteredSubview(titleLabel)
-        contentView.round(with: 8)
+        contentView.round(with: Defaults.cornerRadius)
         contentView.backgroundColor = .customVeryLightBlue
     }
 

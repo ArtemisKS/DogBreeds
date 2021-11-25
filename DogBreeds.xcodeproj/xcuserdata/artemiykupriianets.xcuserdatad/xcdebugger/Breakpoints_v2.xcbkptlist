@@ -398,10 +398,10 @@
             filePath = "DogBreeds/BreedsImages/Views/Cells/BreedCollectionViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "BreedCollectionViewCell"
-            landmarkType = "21">
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "setupUI()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
