@@ -16,6 +16,8 @@ To get this app up and running
 
 ## Videos
 
+https://user-images.githubusercontent.com/35403190/143443730-95ab94b8-7617-4809-9676-aa86d140311f.MOV
+
 https://user-images.githubusercontent.com/35403190/143443660-bf9c6eb2-a735-4834-a387-62ad15a31386.mov
 
 https://user-images.githubusercontent.com/35403190/143443695-3238be14-7b47-441a-9512-012bfebfd6aa.MOV
@@ -23,8 +25,6 @@ https://user-images.githubusercontent.com/35403190/143443695-3238be14-7b47-441a-
 https://user-images.githubusercontent.com/35403190/143443721-4844fece-0bed-48a3-a4ae-47ad48186798.MOV
 
 https://user-images.githubusercontent.com/35403190/143443727-924d58da-0806-4f8b-b563-5451b549fbb9.MOV
-
-https://user-images.githubusercontent.com/35403190/143443730-95ab94b8-7617-4809-9676-aa86d140311f.MOV
 
 ---
 
