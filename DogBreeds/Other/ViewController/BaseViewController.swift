@@ -7,9 +7,10 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, LoadingStateView {
 
     // MARK: - Private
+    
     private var spinner: UIActivityIndicatorView = {
         $0.hidesWhenStopped = true
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -17,40 +18,22 @@ class BaseViewController: UIViewController {
         return $0
     }(UIActivityIndicatorView(style: .medium))
 
-    // MARK: - Properties
-    var nonErrorViews: [UIView] { [] }
-    var errorView: ErrorView { .init() }
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
     }
-
-    // MARK: - Methods
-    func startAnimating() {
-        view.bringSubviewToFront(spinner)
-        spinner.startAnimating()
-        view.isUserInteractionEnabled = false
-    }
-
-    func stopAnimating() {
-        spinner.stopAnimating()
-        view.isUserInteractionEnabled = true
-    }
-
-    func setLoading(_ loading: Bool) {
+    
+    // MARK: - Private
+    
+    func showLoading(_ loading: Bool) {
         loading ? startAnimating() : stopAnimating()
-        if loading {
-            setAllViews(hidden: true, errorViewHidden: true)
-        }
-    }
-
-    func setAllViews(hidden: Bool, errorViewHidden: Bool) {
-        nonErrorViews.forEach { $0.isHidden = hidden }
-        errorView.isHidden = errorViewHidden
     }
 }
+
+// MARK: - Private
 
 private extension BaseViewController {
 
@@ -60,5 +43,16 @@ private extension BaseViewController {
             spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
+    }
+    
+    func startAnimating() {
+        view.bringSubviewToFront(spinner)
+        spinner.startAnimating()
+        view.isUserInteractionEnabled = false
+    }
+
+    func stopAnimating() {
+        spinner.stopAnimating()
+        view.isUserInteractionEnabled = true
     }
 }

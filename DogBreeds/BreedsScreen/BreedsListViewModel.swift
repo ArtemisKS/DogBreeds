@@ -44,8 +44,7 @@ extension BreedsListViewModel: BreedsListViewModelProtocol {
 
     func process(input: BreedsList.Models.ViewModelInput) {
         input.onLoad.sink { [weak self] _ in
-            guard let self = self else { return }
-            self.loadBreeds()
+            self?.loadBreeds()
         }.store(in: &subscriptions)
 
         input.onItem.sink { [weak self] index in
@@ -56,9 +55,9 @@ extension BreedsListViewModel: BreedsListViewModelProtocol {
             self.update()
         }.store(in: &subscriptions)
 
-        input.onUpdateCollectionSubj.sink { [weak self] BreedsList in
+        input.onUpdateCollectionSubj.sink { [weak self] breedsList in
             guard let self = self else { return }
-            self.update(with: self.items.filter { BreedsList.isEmpty || $0.text.contains(BreedsList.trimmed) })
+            self.update(with: self.items.filter { breedsList.isEmpty || $0.text.contains(breedsList.trimmed) })
         }.store(in: &subscriptions)
 
         input.onFavoritePicsTapped.sink { [weak self] in
@@ -67,8 +66,7 @@ extension BreedsListViewModel: BreedsListViewModelProtocol {
         }.store(in: &subscriptions)
 
         input.onRetryTapped.sink { [weak self] in
-            guard let self = self else { return }
-            let request = self.requestQueue.dequeue()
+            let request = self?.requestQueue.dequeue()
             request?()
         }.store(in: &subscriptions)
     }
@@ -81,9 +79,9 @@ private extension BreedsListViewModel {
         viewStateSubj.send(.loading)
         diProvider.breedsController
             .getBreedsList()
-            .sink(receiveCompletion: { [weak self] completion in
+            .sink(receiveCompletion: { [weak self] result in
                 guard let self = self else { return }
-                switch completion {
+                switch result {
                 case let .failure(error):
                     self.requestQueue.enqueue(self.loadBreeds)
                     self.viewActionSubj.send(.showError(message: error.localizedDescription))

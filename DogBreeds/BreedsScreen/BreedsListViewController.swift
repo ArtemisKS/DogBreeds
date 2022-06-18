@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-final class BreedsListViewController: BaseViewController {
+final class BreedsListViewController: BaseViewController, ErrorStateView {
 
     // MARK: - Defaults
     private enum Defaults {
@@ -84,11 +84,11 @@ final class BreedsListViewController: BaseViewController {
     }(ErrorView())
 
     // MARK: - Properties
-    override var errorView: ErrorView {
+    var errorView: ErrorView {
         _errorView
     }
 
-    override var nonErrorViews: [UIView] {
+    var nonErrorViews: [UIView] {
         [titleLabel, favoritePicsButton, collectionView]
     }
 
@@ -151,11 +151,11 @@ private extension BreedsListViewController {
             setLoading(true)
         case let .error(message):
             setLoading(false)
-            setAllViews(hidden: true, errorViewHidden: false)
+            setViews(hidden: true, errorViewHidden: false)
             errorView.state = .init(text: message)
         case let .plain(items):
             setLoading(false)
-            setAllViews(hidden: false, errorViewHidden: true)
+            setViews(hidden: false, errorViewHidden: true)
             updateSnapshot(items, animated: false)
         }
     }

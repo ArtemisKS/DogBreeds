@@ -17,9 +17,9 @@ final class ActionSheetTableViewCell: UITableViewCell, Reusable {
         static let verticalInsets: CGFloat = 16
         static let checkImageSize: CGSize = .init(width: 16, height: 16)
         static let checkImageInsets: UIEdgeInsets = .init(horizontal: 4, vertical: 4)
-
+        
         enum Images {
-            static let checkmark = UIImage(named: "checkbox_selected")
+            static let checkmark = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysOriginal)
         }
     }
 

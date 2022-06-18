@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Queue<T> {
+class Queue<T> {
     private var array = [T]()
 
     var isEmpty: Bool {
@@ -18,11 +18,11 @@ struct Queue<T> {
         array.count
     }
 
-    mutating func enqueue(_ element: T) {
+    func enqueue(_ element: T) {
         array.append(element)
     }
 
-    mutating func dequeue() -> T? {
+    func dequeue() -> T? {
         if isEmpty {
             return nil
         } else {

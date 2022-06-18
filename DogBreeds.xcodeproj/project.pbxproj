@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7967A7AC285E109A00EE69DB /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7967A7AB285E109A00EE69DB /* UIApplication.swift */; };
+		7967A7AF285E1C8C00EE69DB /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7967A7AE285E1C8C00EE69DB /* ErrorStateView.swift */; };
+		7967A7B1285E1CA300EE69DB /* LoadingStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7967A7B0285E1CA300EE69DB /* LoadingStateView.swift */; };
 		ED93B419274940B200280B25 /* ActionSheetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED93B400274940B100280B25 /* ActionSheetTableViewCell.swift */; };
 		ED93B41A274940B200280B25 /* ActionSheetAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED93B401274940B100280B25 /* ActionSheetAssembly.swift */; };
 		ED93B41B274940B200280B25 /* ActionSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED93B402274940B100280B25 /* ActionSheetViewController.swift */; };
@@ -74,6 +77,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7967A7AB285E109A00EE69DB /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		7967A7AE285E1C8C00EE69DB /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
+		7967A7B0285E1CA300EE69DB /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
 		ED93B400274940B100280B25 /* ActionSheetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetTableViewCell.swift; sourceTree = "<group>"; };
 		ED93B401274940B100280B25 /* ActionSheetAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetAssembly.swift; sourceTree = "<group>"; };
 		ED93B402274940B100280B25 /* ActionSheetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +159,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7967A7AD285E1C7D00EE69DB /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				7967A7AE285E1C8C00EE69DB /* ErrorStateView.swift */,
+				7967A7B0285E1CA300EE69DB /* LoadingStateView.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		ED93B3FE274940B100280B25 /* ActionSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,6 +443,7 @@
 		EDED415027484094007C528D /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				7967A7AD285E1C7D00EE69DB /* Protocols */,
 				ED93B46B274ED18600280B25 /* LocalStorage */,
 				ED93B45D274C26A700280B25 /* DataStructures */,
 				ED93B45A274BFE4D00280B25 /* ViewController */,
@@ -450,6 +466,7 @@
 				EDED423727484FB8007C528D /* String.swift */,
 				ED93B42B2749446000280B25 /* PanControllerPresentable.swift */,
 				ED93B458274BEAA800280B25 /* UIStackView.swift */,
+				7967A7AB285E109A00EE69DB /* UIApplication.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -546,10 +563,12 @@
 				EDED415927484094007C528D /* UIColor.swift in Sources */,
 				ED93B421274940B200280B25 /* PanModalHeight.swift in Sources */,
 				ED93B45C274BFE7200280B25 /* BaseViewController.swift in Sources */,
+				7967A7AF285E1C8C00EE69DB /* ErrorStateView.swift in Sources */,
 				ED93B41C274940B200280B25 /* ActionSheetDataSource.swift in Sources */,
 				ED93B422274940B200280B25 /* PanModalPresentable+UIViewController.swift in Sources */,
 				ED93B457274BE51600280B25 /* DIProvider.swift in Sources */,
 				EDED42362748468E007C528D /* BreedsFilterButton.swift in Sources */,
+				7967A7B1285E1CA300EE69DB /* LoadingStateView.swift in Sources */,
 				ED93B427274940B200280B25 /* PanModalPresentationAnimator.swift in Sources */,
 				EDED42342748435A007C528D /* BreedsFilterView.swift in Sources */,
 				ED93B424274940B200280B25 /* PanModalPresenter.swift in Sources */,
@@ -580,6 +599,7 @@
 				EDED415B27484094007C528D /* CGFloat+Screen.swift in Sources */,
 				ED93B41A274940B200280B25 /* ActionSheetAssembly.swift in Sources */,
 				ED93B426274940B200280B25 /* PanModalAnimator.swift in Sources */,
+				7967A7AC285E109A00EE69DB /* UIApplication.swift in Sources */,
 				EDED413F27483F72007C528D /* BreedAssembly.swift in Sources */,
 				ED93B447274BD50C00280B25 /* NetworkController.swift in Sources */,
 				ED93B435274A90C500280B25 /* BreedsListDataSource.swift in Sources */,

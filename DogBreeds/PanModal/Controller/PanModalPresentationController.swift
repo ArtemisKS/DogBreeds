@@ -472,7 +472,7 @@ private extension PanModalPresentationController {
          Set the appropriate contentInset as the configuration within this class
          offsets it
          */
-        scrollView.contentInset.bottom = presentingViewController.bottomLayoutGuide.length
+        scrollView.contentInset.bottom = presentingViewController.view.safeAreaInsets.bottom
     }
 
 }
@@ -544,7 +544,6 @@ private extension PanModalPresentationController {
                             && presentedView.frame.minY < shortFormYPosition) || presentable?.allowsDragToDismiss == false {
                     transition(to: .shortForm)
                 } else {
-                    let points = presentedView.frame.height - presentedView.frame.minY
                     let duration = min(presentable?.transitionDuration ?? PanModalAnimator.Defaults.defaultTransitionDuration, Double(visibleHeight / velocity.y))
                     didChangeDuration?(duration)
                     presentedViewController.dismiss(animated: true)
@@ -668,7 +667,7 @@ private extension PanModalPresentationController {
      Check if the given velocity is within the sensitivity range
      */
     func isVelocityWithinSensitivityRange(_ velocity: CGFloat, for height: CGFloat) -> Bool {
-        if let panScrollable = presentable?.panScrollable,
+        if presentable?.panScrollable != nil,
            let startContentOffset = startContentOffset,
            startContentOffset != .zero {
             return false

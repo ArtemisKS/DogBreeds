@@ -26,6 +26,8 @@ extension BreedsList.Models {
             self.subtypes = subtypes
         }
 
+        // MARK: - Mock fields
+        
         static var models: [ItemModel] {
             (0..<dogBreedsLists.count).map { .init(text: "\(dogBreedsLists[$0])", subtypes: ["\($0)"]) }
         }
