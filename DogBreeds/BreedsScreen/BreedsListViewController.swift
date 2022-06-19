@@ -13,14 +13,9 @@ final class BreedsListViewController: BaseViewController, ErrorStateView {
     // MARK: - Defaults
     private enum Defaults {
 
-        enum TitleLabel {
-            static let top: CGFloat = 16
-            static let horizontal: CGFloat = 16
-        }
-
         enum BreedsFilterButton {
-            static let size: CGSize = .init(width: 148, height: 36)
-            static let cornerRadius: CGFloat = 8
+            static let size: CGSize = .init(width: 88, height: 30)
+            static let cornerRadius: CGFloat = 12
             static let horizontal: CGFloat = 16
         }
 
@@ -48,7 +43,7 @@ final class BreedsListViewController: BaseViewController, ErrorStateView {
     private let onLoad = PassthroughSubject<Void, Never>()
     private let onItemSubj = PassthroughSubject<Int, Never>()
     private let onUpdateCollectionSubj = PassthroughSubject<String, Never>()
-    private let onFavoritePicsTappedSubj = PassthroughSubject<Void, Never>()
+    private let onfavoriteTappedSubj = PassthroughSubject<Void, Never>()
     private let onRetryTappedSubj = PassthroughSubject<Void, Never>()
     private let onSearchQuery = PassthroughSubject<String, Never>()
     private let onReset = PassthroughSubject<Void, Never>()
@@ -57,18 +52,13 @@ final class BreedsListViewController: BaseViewController, ErrorStateView {
     private var numberOfItems = 0
 
     // MARK: - Subviews
-    private lazy var titleLabel: UILabel = {
-        $0.font = .systemFont(ofSize: 18, weight: .semibold)
-        $0.numberOfLines = .zero
-        $0.text = "Dog breeds"
-        return $0
-    }(UILabel())
 
-    private lazy var favoritePicsButton: CustomButton = {
-        $0.setTitle("Favorite pics", for: .normal)
+    private lazy var favoriteButton: CustomButton = {
+        $0.setTitle("Favorite", for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 15)
         $0.backColor = .carolinaBlue
         $0.round(with: Defaults.BreedsFilterButton.cornerRadius)
-        $0.addTarget(self, action: #selector(favoritePicsButtonTapped), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
         return $0
     }(CustomButton())
 
@@ -91,7 +81,7 @@ final class BreedsListViewController: BaseViewController, ErrorStateView {
     }
 
     var nonErrorViews: [UIView] {
-        [titleLabel, favoritePicsButton, collectionView]
+        [favoriteButton, collectionView]
     }
 
     // MARK: - Lifecycle
@@ -122,7 +112,7 @@ private extension BreedsListViewController {
             onLoad: onLoad.eraseToAnyPublisher(),
             onItem: onItemSubj.eraseToAnyPublisher(),
             onUpdateCollectionSubj: onUpdateCollectionSubj.eraseToAnyPublisher(),
-            onFavoritePicsTapped: onFavoritePicsTappedSubj.eraseToAnyPublisher(),
+            onFavoriteTapped: onfavoriteTappedSubj.eraseToAnyPublisher(),
             onRetryTapped: onRetryTappedSubj.eraseToAnyPublisher(),
             onSearchQuery: onSearchQuery.eraseToAnyPublisher(),
             onReset: onReset.eraseToAnyPublisher()
@@ -177,14 +167,14 @@ private extension BreedsListViewController {
             showOkAlert(message: message, completion:  { [weak self] in
                 self?.render(.error(message))
             })
-        case let .moveToFavoritePicsScreen(diProvider), let .moveToBreedPicsScreen(_, diProvider):
+        case let .moveToFavoriteScreen(diProvider), let .moveToBreedPicsScreen(_, diProvider):
             var breed: String?
             let config: BreedViewController.Config
             if case let .moveToBreedPicsScreen(item, _) = action {
                 breed = item.text
                 config = makeBreedPicsConfig()
             } else {
-                config = makeFavoritePicsConfig()
+                config = makeFavoriteConfig()
             }
             let controller = Breed.Assembly.createModule(
                 breed: breed,
@@ -210,23 +200,14 @@ private extension BreedsListViewController {
 
 // MARK: - Constraints
 private extension BreedsListViewController {
-
-    var titleConstraints: [NSLayoutConstraint] {
+    
+    var favoriteButtonConstraints: [NSLayoutConstraint] {
         [
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Defaults.TitleLabel.top),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: Defaults.TitleLabel.horizontal),
-            view.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: Defaults.TitleLabel.horizontal)
+            favoriteButton.widthAnchor.constraint(equalToConstant: Defaults.BreedsFilterButton.size.width),
+            favoriteButton.heightAnchor.constraint(equalToConstant: Defaults.BreedsFilterButton.size.height)
         ]
     }
 
-    var favoritePicsButtonConstraints: [NSLayoutConstraint] {
-        [
-            favoritePicsButton.widthAnchor.constraint(equalToConstant: Defaults.BreedsFilterButton.size.width),
-            favoritePicsButton.heightAnchor.constraint(equalToConstant: Defaults.BreedsFilterButton.size.height),
-            favoritePicsButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            favoritePicsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -Defaults.BreedsFilterButton.horizontal)
-        ]
-    }
 
     var errorViewConstraints: [NSLayoutConstraint] {
         [
@@ -239,7 +220,7 @@ private extension BreedsListViewController {
 
     var collectionViewConstraints: [NSLayoutConstraint] {
         [
-            collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Defaults.CollectionView.top),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -258,11 +239,14 @@ private extension BreedsListViewController {
         
         setupSearchController()
 
-        view.add(views: [titleLabel, favoritePicsButton, collectionView, errorView],
-                 with: titleConstraints +
+        view.add(views: [collectionView, errorView],
+                 with: favoriteButtonConstraints +
                  collectionViewConstraints +
-                 favoritePicsButtonConstraints +
                  errorViewConstraints)
+        
+        let rightItem: UIBarButtonItem = UIBarButtonItem()
+        rightItem.customView = favoriteButton
+        navigationItem.rightBarButtonItem = rightItem
 
         view.backgroundColor = .systemBackground
     }
@@ -277,8 +261,8 @@ private extension BreedsListViewController {
     }
 
     @objc
-    func favoritePicsButtonTapped() {
-        onFavoritePicsTappedSubj.send()
+    func favoriteButtonTapped() {
+        onfavoriteTappedSubj.send()
     }
 
     func onRetryTapped() {
@@ -291,7 +275,7 @@ private extension BreedsListViewController {
               shouldRemoveItemOnTap: false)
     }
 
-    func makeFavoritePicsConfig() -> BreedViewController.Config {
+    func makeFavoriteConfig() -> BreedViewController.Config {
         .init(title: "Favorite pictures",
               isFilterVisible: true,
               shouldRemoveItemOnTap: true)

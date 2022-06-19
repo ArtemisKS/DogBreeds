@@ -52,7 +52,7 @@ extension BreedsList.Models {
         let onLoad: AnyPublisher<Void, Never>
         let onItem: AnyPublisher<Int, Never>
         let onUpdateCollectionSubj: AnyPublisher<String, Never>
-        let onFavoritePicsTapped: AnyPublisher<Void, Never>
+        let onFavoriteTapped: AnyPublisher<Void, Never>
         let onRetryTapped: AnyPublisher<Void, Never>
         let onSearchQuery: AnyPublisher<String, Never>
         let onReset: AnyPublisher<Void, Never>
@@ -66,7 +66,7 @@ extension BreedsList.Models {
     }
 
     enum ViewAction {
-        case moveToFavoritePicsScreen(diProvider: DIProviderProtocol)
+        case moveToFavoriteScreen(diProvider: DIProviderProtocol)
         case moveToBreedPicsScreen(breed: ItemModel, diProvider: DIProviderProtocol)
         case showError(message: String)
     }

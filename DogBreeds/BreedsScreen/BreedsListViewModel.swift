@@ -61,9 +61,9 @@ extension BreedsListViewModel: BreedsListViewModelProtocol {
             self.update(with: self.items.filter { breedsList.isEmpty || $0.text.contains(breedsList.trimmed) })
         }.store(in: &subscriptions)
 
-        input.onFavoritePicsTapped.sink { [weak self] in
+        input.onFavoriteTapped.sink { [weak self] in
             guard let self = self else { return }
-            self.viewActionSubj.send(.moveToFavoritePicsScreen(diProvider: self.diProvider))
+            self.viewActionSubj.send(.moveToFavoriteScreen(diProvider: self.diProvider))
         }.store(in: &subscriptions)
 
         input.onRetryTapped.sink { [weak self] in
