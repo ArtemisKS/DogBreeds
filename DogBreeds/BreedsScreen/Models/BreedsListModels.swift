@@ -54,6 +54,8 @@ extension BreedsList.Models {
         let onUpdateCollectionSubj: AnyPublisher<String, Never>
         let onFavoritePicsTapped: AnyPublisher<Void, Never>
         let onRetryTapped: AnyPublisher<Void, Never>
+        let onSearchQuery: AnyPublisher<String, Never>
+        let onReset: AnyPublisher<Void, Never>
     }
 
     // MARK: Output

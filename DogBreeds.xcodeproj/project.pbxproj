@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7962273E285F43E0005F6178 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7962273D285F43E0005F6178 /* Collection.swift */; };
 		7967A7AC285E109A00EE69DB /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7967A7AB285E109A00EE69DB /* UIApplication.swift */; };
 		7967A7AF285E1C8C00EE69DB /* ErrorStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7967A7AE285E1C8C00EE69DB /* ErrorStateView.swift */; };
 		7967A7B1285E1CA300EE69DB /* LoadingStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7967A7B0285E1CA300EE69DB /* LoadingStateView.swift */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7962273D285F43E0005F6178 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		7967A7AB285E109A00EE69DB /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		7967A7AE285E1C8C00EE69DB /* ErrorStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStateView.swift; sourceTree = "<group>"; };
 		7967A7B0285E1CA300EE69DB /* LoadingStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStateView.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 				ED93B42B2749446000280B25 /* PanControllerPresentable.swift */,
 				ED93B458274BEAA800280B25 /* UIStackView.swift */,
 				7967A7AB285E109A00EE69DB /* UIApplication.swift */,
+				7962273D285F43E0005F6178 /* Collection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				EDED415927484094007C528D /* UIColor.swift in Sources */,
 				ED93B421274940B200280B25 /* PanModalHeight.swift in Sources */,
 				ED93B45C274BFE7200280B25 /* BaseViewController.swift in Sources */,
+				7962273E285F43E0005F6178 /* Collection.swift in Sources */,
 				7967A7AF285E1C8C00EE69DB /* ErrorStateView.swift in Sources */,
 				ED93B41C274940B200280B25 /* ActionSheetDataSource.swift in Sources */,
 				ED93B422274940B200280B25 /* PanModalPresentable+UIViewController.swift in Sources */,

@@ -21,6 +21,7 @@ final class BreedsListViewModel {
     // MARK: - Properties
     private let diProvider: DIProviderProtocol
     private var items: [BreedsList.Models.ItemModel] = []
+    private var lastDisplayedItems: [BreedsList.Models.ItemModel] = []
     private var selectedItems: [BreedsList.Models.ItemModel] = []
     private var requestQueue: Queue<ActionHandler> = .init()
 
@@ -69,11 +70,32 @@ extension BreedsListViewModel: BreedsListViewModelProtocol {
             let request = self?.requestQueue.dequeue()
             request?()
         }.store(in: &subscriptions)
+        
+        input.onSearchQuery
+            .debounce(for: .seconds(1), scheduler: RunLoop.main)
+            .sink { [weak self] query in
+            self?.reloadBreeds(for: query)
+        }.store(in: &subscriptions)
+        
+        input.onReset.sink { [weak self] in
+            self?.update()
+        }.store(in: &subscriptions)
     }
 }
 
 // MARK: - Private
 private extension BreedsListViewModel {
+    
+    func reloadBreeds(for query: String) {
+        let filteredItems: [BreedsList.Models.ItemModel]
+        if query.isEmpty {
+            filteredItems = items
+        } else {
+            filteredItems = items.filter { $0.text.lowercased().contains(query.lowercased()) }
+        }
+        guard filteredItems.count != lastDisplayedItems.count else { return }
+        update(with: filteredItems)
+    }
 
     func loadBreeds() {
         viewStateSubj.send(.loading)
@@ -95,8 +117,10 @@ private extension BreedsListViewModel {
             .store(in: &subscriptions)
     }
 
+    /// Sole entry point for collection view update
     func update(with items: [BreedsList.Models.ItemModel]? = nil) {
         let items = items ?? self.items
+        lastDisplayedItems = items
         viewStateSubj.send(.plain(mapItems(items)))
     }
 

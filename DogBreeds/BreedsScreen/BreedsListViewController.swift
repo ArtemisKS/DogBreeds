@@ -50,6 +50,8 @@ final class BreedsListViewController: BaseViewController, ErrorStateView {
     private let onUpdateCollectionSubj = PassthroughSubject<String, Never>()
     private let onFavoritePicsTappedSubj = PassthroughSubject<Void, Never>()
     private let onRetryTappedSubj = PassthroughSubject<Void, Never>()
+    private let onSearchQuery = PassthroughSubject<String, Never>()
+    private let onReset = PassthroughSubject<Void, Never>()
     private var subscriptions = Set<AnyCancellable>()
 
     private var numberOfItems = 0
@@ -121,7 +123,9 @@ private extension BreedsListViewController {
             onItem: onItemSubj.eraseToAnyPublisher(),
             onUpdateCollectionSubj: onUpdateCollectionSubj.eraseToAnyPublisher(),
             onFavoritePicsTapped: onFavoritePicsTappedSubj.eraseToAnyPublisher(),
-            onRetryTapped: onRetryTappedSubj.eraseToAnyPublisher()
+            onRetryTapped: onRetryTappedSubj.eraseToAnyPublisher(),
+            onSearchQuery: onSearchQuery.eraseToAnyPublisher(),
+            onReset: onReset.eraseToAnyPublisher()
         )
         viewModel?.process(input: input)
 
@@ -251,6 +255,8 @@ private extension BreedsListViewController {
         title = "Breeds"
 
         collectionView.delegate = self
+        
+        setupSearchController()
 
         view.add(views: [titleLabel, favoritePicsButton, collectionView, errorView],
                  with: titleConstraints +
@@ -259,6 +265,15 @@ private extension BreedsListViewController {
                  errorViewConstraints)
 
         view.backgroundColor = .systemBackground
+    }
+    
+    func setupSearchController() {
+        let search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        search.obscuresBackgroundDuringPresentation = false
+        search.searchBar.delegate = self
+        search.searchBar.placeholder = "Type dog breed here"
+        navigationItem.searchController = search
     }
 
     @objc
@@ -292,3 +307,19 @@ extension BreedsListViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - UISearchResultsUpdating
+extension BreedsListViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        onSearchQuery.send(text)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension BreedsListViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        onReset.send()
+    }
+}

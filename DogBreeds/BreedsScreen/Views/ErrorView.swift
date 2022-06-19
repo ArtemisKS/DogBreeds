@@ -63,10 +63,6 @@ final class ErrorView: UIView {
     }
 }
 
-// MARK: - Internal methods
-extension ErrorView {
-}
-
 // MARK: - Private methods
 private extension ErrorView {
 
